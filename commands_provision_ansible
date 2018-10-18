@@ -1,0 +1,35 @@
+git clone https://www.github.com/wardviaene/ansible-demo.git
+mv ansible-demo/misc/Vagrantfile .
+
+vagrant up webserver
+vagrant up ansible
+
+
+
+vagrant ssh ansible
+sudo apt-get install ansible
+ssh-keygen
+cat .ssh/id_rsa.pub
+
+
+vagrant ssh webserver
+sudo -s
+echo 'the whole copied ssh' > /root/.ssh/authorized_keys
+
+
+vagrant ssh ansible
+ssh-agent bash
+ssh-add .ssh/id_rsa
+
+
+vi hosts
+
+[webservers]
+192.168.0.2
+
+
+ansible -i hosts -u root -m ping all
+
+
+In case we need to renew keys:
+ssh-keygen -R 192.168.0.2

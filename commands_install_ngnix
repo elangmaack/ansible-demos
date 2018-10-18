@@ -1,0 +1,8 @@
+vagrant ssh ansible
+cp /vagrant/ansible-demo/nginx.yml .
+cp -r /vagrant/ansible-demo/templates/ .
+
+ansible-playbook -i hosts -u root nginx.yml
+
+
+curl http://192.168.0.2
