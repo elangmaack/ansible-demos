@@ -1,2 +1,37 @@
+in aws, create a group called ansible, then create a user called ansible, copy its private credential:
+
+iDPqC0k/c2k4C8W6zJ139yN+ZQ4llJtXf4atUUrf
+
+
 sudo apt-get update && sudo apt-get install python-pip
 sudo pip install boto awscli
+aws configure
+access_id
+secret_key
+us-west-2
+
+cat .aws/credentials
+cat .aws/config
+
+aws ec2 import-key-pair --key-name ansible --public-key-material file://~/.ssh/id_rsa.pub
+if we get an error about upgrading python, run:
+
+sudo pip install pyOpenSSL ndg-httpsclient pyasn1
+sudo apt-get install python-dev libffi-dev libssl-dev
+
+OR
+sudo add-apt-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get upgrade
+
+
+cp /vagrant/ansible-demo/ec2.yml .
+cp /vagrant/ansible-demo/nginx-ec2.yml .
+
+go to aws and look for subnets,then edit ec2.yml to input your region, subnet, and security group
+
+create a host file with just the local host :
+[localhost]
+127.0.0.1
+
+ansible-playbook -i hosts-ec2 ec2.yml 
